@@ -26,7 +26,7 @@ def upload_file_to_mega():
     print("Uploaded file:", file)
 
     # Generate public link
-    public_url = m.get_upload_link(uploaded)
+    public_url = m.get_upload_link(file)
     print("Public MEGA link:", public_url)
 
     # Optionally return it for later use
