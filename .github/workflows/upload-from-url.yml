@@ -18,6 +18,11 @@ on:
         required: true
         type: string
 
+      local_filename:
+        description: 'Remote File Name to upload to MEGA'
+        required: true
+        type: string
+
 jobs:
   upload:
     runs-on: ubuntu-latest
@@ -42,4 +47,5 @@ jobs:
           MEGA_EMAIL: ${{ github.event.inputs.mega_email }}
           MEGA_PASSWORD: ${{ github.event.inputs.mega_password }}
           REMOTE_FILE_URL: ${{ github.event.inputs.remote_url }}
+          LOCAL_FILENAME: ${{ github.event.inputs.local_filename }}
         run: python upload_to_mega.py
