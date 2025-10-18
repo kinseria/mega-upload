@@ -1,0 +1,42 @@
+name: Upload to MEGA from URL
+
+on:
+  workflow_dispatch:
+    inputs:
+      mega_email:
+        description: 'MEGA Email'
+        required: true
+        type: string
+
+      mega_password:
+        description: 'MEGA Password'
+        required: true
+        type: string
+
+      remote_url:
+        description: 'Remote File URL to upload to MEGA'
+        required: true
+        type: string
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install dependencies
+        run: pip install mega.py requests
+
+      - name: Upload file to MEGA.nz
+        env:
+          MEGA_EMAIL: ${{ github.event.inputs.mega_email }}
+          MEGA_PASSWORD: ${{ github.event.inputs.mega_password }}
+          REMOTE_FILE_URL: ${{ github.event.inputs.remote_url }}
+        run: python upload_to_mega.py
